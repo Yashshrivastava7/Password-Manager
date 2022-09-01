@@ -19,4 +19,4 @@
 * <b>SQLite</b>
 
 ## Frontend
-* </b>Svelte</b>
+* <b>Svelte</b>
