@@ -2,7 +2,7 @@
 ## Lets you store all your passwords in a databse with encryption 
 
 ### Login and Resgiter
-* Make an account with a unique <User ID> and <Master Password> 
+* Make an account with a unique User ID and Master Password 
 * The master password is used as the encryption key
 * The encrytion used is [SHA-256](https://en.wikipedia.org/wiki/SHA-2)
 * If you are already registered then just login 
@@ -14,9 +14,9 @@
 
 
 ## Backend
-* ==Express==
-* ==Node.js== 
-* ==SQLite==
+* <b>Express</b>
+* <b>Node.js</b> 
+* <b>SQLite</b>
 
-# Frontend
-* ==Svelte==
+## Frontend
+* </b>Svelte</b>
