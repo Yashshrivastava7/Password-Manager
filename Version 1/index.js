@@ -48,6 +48,4 @@ app.post('/users/login',(req,res) => {
     res.send(`Welcome ${checker.username}`);
 });
 
-app.delete()
-
 app.listen(PORT, () => console.log(`Listing at port ${PORT}`));
