@@ -1,0 +1,24 @@
+{
+  "name": "passwordmanager",
+  "version": "1.0.0",
+  "description": "### Login and Resgiter * Make an account with a unique User ID and Master Password  * The master password is used as the encryption key * The encrytion used is [SHA-256](https://en.wikipedia.org/wiki/SHA-2) * If you are already registered then just login",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yashshrivastava7/Password-Manager.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Yashshrivastava7/Password-Manager/issues"
+  },
+  "homepage": "https://github.com/Yashshrivastava7/Password-Manager#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "joi": "^17.6.0"
+  }
+}

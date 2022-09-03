@@ -5,9 +5,7 @@ const PORT = process.env.PORT || 8080;
 app.use(express.json());
 
 const Users = [
-    { id: 1 , password: "Hello" },
-    { id: 2 , password: "Hello2"},
-    { id: 3 , password: "Hello3"},
+    
 ];
 
 app.get('/',(req,res) => {
@@ -28,10 +26,11 @@ app.get('/users/:id',(req,res) => {
 
 app.post('/users/register',(req,res) => {
     const new_user = {
-        id: req.body.id,
+        id: Users.length + 1,
+        username: req.body.username,
         password: req.body.password,
     }
-    const checker = Users.find(c => c.id === new_user.id);
+    const checker = Users.find(c => c.username === new_user.username);
     if(checker){
         res.status(400).send("User already exists");
     }
@@ -40,13 +39,15 @@ app.post('/users/register',(req,res) => {
 });
 
 app.post('/users/login',(req,res) => {
-    const checker = Users.find(c => c.id === req.body.id);
+    const checker = Users.find(c => c.username === req.body.username);
     if(!checker){
         res.status(400).send("User not found");
     }else if(checker.password != req.body.password){
         res.status(400).send("Wrong password");
     }
-    res.send(`Welcome ${checker.id}`);
+    res.send(`Welcome ${checker.username}`);
 });
+
+app.delete()
 
 app.listen(PORT, () => console.log(`Listing at port ${PORT}`));
