@@ -5,6 +5,18 @@ const PORT = process.env.PORT || 8080;
 app.use(express.json());
 
 const Users = [];
+const User_data = [
+    {
+        id: 1,
+        data: [
+            {
+                domain: "facebook.com",
+                username: "xyz",
+                password: "wow"
+            },
+        ]
+    }
+];
 
 app.get('/', (req, res) => {
     res.status(200).send("Endpoint Working")
