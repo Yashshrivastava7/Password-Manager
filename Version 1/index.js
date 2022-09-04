@@ -7,11 +7,11 @@ app.use(express.json());
 const Users = [];
 const User_data = [
     {
-        id: 1,
+        username : "yash",
         data: [
             {
                 domain: "facebook.com",
-                username: "xyz",
+                user: "xyz",
                 password: "wow"
             },
         ]
@@ -56,6 +56,35 @@ app.post('/users/login', (req, res) => {
         res.status(400).send("Wrong password");
     }
     res.send(`Welcome ${checker.username}`);
+});
+
+app.get('/users/data/list',(req,res) => {
+    res.status(200).send(User_data);
+});
+
+app.post('/users/data',(req,res) => {
+    const checker = User_data.find(c => c.username === req.body.username);
+    if(!checker){
+        const add_data = {
+            username: req.body.username,
+            data: [
+                {
+                    domain: req.body.domain,
+                    user: req.body.user,
+                    password: req.body.password,
+                }
+            ]
+        }
+        User_data.push(add_data);
+    res.status(200).send(add_data);
+    }
+    const add_data = {
+        domain: req.body.domain,
+        user: req.body.user,
+        password: req.body.password
+    }
+    checker.data.push(add_data);
+    res.status(200).send(add_data);
 });
 
 app.listen(PORT, () => console.log(`Listing at port ${PORT}`));
