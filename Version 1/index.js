@@ -34,6 +34,10 @@ app.get('/users/:id', (req, res) => {
     res.send(checker);
 });
 
+app.get('/users/data/list',(req,res) => {
+    res.status(200).send(User_data);
+});
+
 app.post('/users/register', (req, res) => {
     const new_user = {
         id: Users.length + 1,
@@ -56,10 +60,6 @@ app.post('/users/login', (req, res) => {
         res.status(400).send("Wrong password");
     }
     res.send(`Welcome ${checker.username}`);
-});
-
-app.get('/users/data/list',(req,res) => {
-    res.status(200).send(User_data);
 });
 
 app.post('/users/data',(req,res) => {
