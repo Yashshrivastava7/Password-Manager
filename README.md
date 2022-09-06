@@ -1,5 +1,5 @@
 # Password Manager 
-## Lets you store all your passwords in a databse with encryption 
+## Lets you store all your passwords in a database with encryption 
 
 ### Login and Resgiter
 * Make an account with a unique User ID and Master Password 
