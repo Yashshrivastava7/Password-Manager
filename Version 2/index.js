@@ -37,12 +37,14 @@ app.get('/users',(req,res) => {
 });
 
 app.get('/users/:id',(req,res) => {
+    let check = false;
     db.all(display_all_users_query,[],(err,rows) => {
         if(err){
             res.send(err.message);
         }
         rows.forEach((row) => {
             if(parseInt(req.params.id) === row.id){
+                check = true;
                 user = {
                     id : row.id,
                     username : row.username,
@@ -51,6 +53,18 @@ app.get('/users/:id',(req,res) => {
                 res.status(200).send(user);
             }
         });
+        if(!check){
+            res.status(400).send('User not found');
+        }
+    });
+});
+
+app.post('/register',(req,res) => {
+    db.run(`insert into auth(username,password) values(?,?)`,[req.body.username,req.body.password],function(err) {
+        if(err){
+            res.send(err.message);
+        }
+        res.status(200).send('User registration successful');
     });
 });
 
