@@ -61,7 +61,7 @@ app.get('/users/:id',(req,res) => {
 });
 
 app.post('/register',(req,res) => {
-    db.run(`insert into auth(username,password) values(?,?)`,[req.body.username,req.body.password],function(err) {
+    db.run(`insert into auth(username,password) values (?,?)`,[req.body.username,req.body.password],function(err) {
         if(err) {
             res.send(err.message);
         }
@@ -82,5 +82,42 @@ app.post('/login',(req,res) => {
         }
     });
 });
+
+app.post('/:username',(req,res) => {
+    db.get(`select * from auth where username = (?)`,[req.params.username],(err,row) => {
+        if(err){
+            res.send(err.message);
+        }
+        console.log(row.id);
+        db.run(`insert into user_data values (?,?,?,?)`,[row.id,req.body.domain,req.body.username,req.body.password],function(err) {
+            if(err) {
+                res.send(err.message);
+            }
+            else {
+                res.status(200).send('Data added successfully');
+            }
+        });
+    });
+});
+
+app.get('/user_data',(req,res) => {
+    user_data = [];
+    db.all(`select * from user_data`,[],(err,rows) => {
+        if(err){
+            res.send(err.message);
+        }
+        rows.forEach((row) => {
+            data = {
+                id : row.parent_id,
+                domain : row.domain,
+                username : row.username,
+                password : row.password
+            }
+            user_data.push(data);
+        });
+        res.status(200).send(user_data);
+    });
+});
+
 
 app.listen(PORT,() => console.log(`Listening at ${PORT}`));
