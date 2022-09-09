@@ -11,9 +11,10 @@ app.get('/',(req,res) => {
 });
 
 let display_all_users_query = `select * from auth`;
+let login_query = `select username,password from auth where username=(?) and password=(?)`;
 
 let db = new sqlite3.Database('database.db' , sqlite3.OPEN_READWRITE , (err) => {
-    if(err){
+    if(err) {
         return console.log(err.message);
     }
 });
@@ -21,7 +22,7 @@ let db = new sqlite3.Database('database.db' , sqlite3.OPEN_READWRITE , (err) => 
 app.get('/users',(req,res) => {
     users = [];
     db.all(display_all_users_query,[],(err,rows) => {
-        if(err){
+        if(err) {
             res.send(err.message);
         }
         rows.forEach((row) => {
@@ -39,11 +40,11 @@ app.get('/users',(req,res) => {
 app.get('/users/:id',(req,res) => {
     let check = false;
     db.all(display_all_users_query,[],(err,rows) => {
-        if(err){
+        if(err) {
             res.send(err.message);
         }
         rows.forEach((row) => {
-            if(parseInt(req.params.id) === row.id){
+            if(parseInt(req.params.id) === row.id) {
                 check = true;
                 user = {
                     id : row.id,
@@ -61,10 +62,24 @@ app.get('/users/:id',(req,res) => {
 
 app.post('/register',(req,res) => {
     db.run(`insert into auth(username,password) values(?,?)`,[req.body.username,req.body.password],function(err) {
-        if(err){
+        if(err) {
             res.send(err.message);
         }
         res.status(200).send('User registration successful');
+    });
+});
+
+app.post('/login',(req,res) => {
+    db.get(`select username,password from auth where username = (?)`,[req.body.username],(err,row) => {
+        if(err) {
+            res.send(err.message);
+        }
+        else if(row.password === req.body.password) {
+            res.status(200).send('Login Successful');
+        }
+        else {
+            res.status(400).send('Inlavid Credentials')
+        }
     });
 });
 
