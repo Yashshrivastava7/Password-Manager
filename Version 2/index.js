@@ -119,5 +119,28 @@ app.get('/user_data',(req,res) => {
     });
 });
 
+app.get('/:username',(req,res) => {
+    db.get(`select * from auth where username = (?)`,[req.params.username],(err,row) => {
+        if(err){
+            res.send(err.message);
+        }
+        user_data = [];
+        db.all(`select * from user_data where parent_id = (?)`,[row.id],(err,rows) => {
+            if(err){
+                res.send(err.message);
+            }
+            rows.forEach((row) => {
+                data = {
+                    id : row.parent_id,
+                    domain : row.domain,
+                    username : row.username,
+                    password : row.password
+                }
+                user_data.push(data);
+            });
+            res.status(200).send(user_data);
+        });
+    });
+});
 
 app.listen(PORT,() => console.log(`Listening at ${PORT}`));
