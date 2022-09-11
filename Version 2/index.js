@@ -15,5 +15,7 @@ app.post('/login', requestHandlers.loginUser);
 app.post('/:username', requestHandlers.addUserDataForUsername);
 app.get('/user_data', requestHandlers.getAllUsersData);
 app.get('/:username', requestHandlers.getUserDataForUsername);
+app.delete('/users/:id',requestHandlers.deleteUser);
+app.delete('/user_data/:id',requestHandlers.deleteUserData);
 
 app.listen(PORT,() => console.log(`Listening at ${PORT}`));
