@@ -30,6 +30,9 @@ const dbQueries = {
 
     getAllRegisteredUsers: () => `SELECT *
                                   FROM auth`,
+    deleteUserData: (params) => `DELETE FROM user_data WHERE parent_id = ${params.id} AND domain = "${params.domain}"`,
+
+    deleteUser: (params) => `DELETE FROM auth WHERE id = ${params.id}`,
 
 }
 
