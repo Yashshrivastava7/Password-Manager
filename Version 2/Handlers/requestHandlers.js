@@ -84,7 +84,7 @@ exports.getAllUsersData = (req,res) => {
         rows.forEach((row) => {
             data = {
                 id : row.parent_id,
-                domain : row.domain,
+                domain : row.Domain,
                 username : row.username,
                 password : row.password
             }
@@ -105,5 +105,23 @@ exports.getUserDataForUsername = (req,res) => {
             user_data.push(row);
         });
         res.status(200).send(user_data);
+    });
+}
+
+exports.deleteUser = (req,res) => {
+    db.run(dbQueries.deleteUser({ id: req.params.id }),[],function(err) {
+        if(err){
+            res.send(err.message);
+        }
+        res.status(200).send('Deletion Successful');
+    });
+}
+
+exports.deleteUserData = (req,res) => {
+    db.run(dbQueries.deleteUserData({ id: parseInt(req.params.id) , domain: req.body.domain }),[],function(err){
+        if(err){
+            res.send(err.message);
+        }
+        res.status(200).send('Deletion Successful');
     });
 }
